@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "additionalProperties": true,
+  "properties": {
+    "global": {
+      "additionalProperties": true,
+      "description": "global properties section - if the Helm chart is installed via Composition Dynamic Controller, these are injected by default",
+      "properties": {
+        "compositionApiVersion": {
+          "default": "composition.krateo.io/v0-0-13",
+          "description": "Composition Custom Resource apiVersion",
+          "examples": [
+            "composition.krateo.io/v0-0-1"
+          ],
+          "title": "compositionApiVersion",
+          "type": "string"
+        },
+        "compositionGroup": {
+          "default": "composition.krateo.io",
+          "description": "Composition Custom Resource group",
+          "examples": [
+            "composition.krateo.io"
+          ],
+          "title": "compositionGroup",
+          "type": "string"
+        },
+        "compositionId": {
+          "default": "1ae8b9b3-a08e-4ea0-b360-d7f21213b04c",
+          "description": "Composition Custom Resource metadata uid",
+          "examples": [
+            "a4a524f7-33a9-4d71-96d5-9e9b7daa3a42"
+          ],
+          "title": "compositionId",
+          "type": "string"
+        },
+        "compositionInstalledVersion": {
+          "default": "v0-3-2",
+          "description": "Composition Custom Resource installed version",
+          "examples": [
+            "v0-0-1"
+          ],
+          "title": "compositionInstalledVersion",
+          "type": "string"
+        },
+        "compositionKind": {
+          "default": "FullStackApp",
+          "description": "Composition Custom Resource kind",
+          "examples": [
+            "GithubScaffolding"
+          ],
+          "title": "compositionKind",
+          "type": "string"
+        },
+        "compositionName": {
+          "default": "my-app-1",
+          "description": "Composition Custom Resource metadata name",
+          "examples": [
+            "cloudnative-stack"
+          ],
+          "title": "compositionName",
+          "type": "string"
+        },
+        "compositionNamespace": {
+          "default": "full-stack-app-1",
+          "description": "Composition Custom Resource metadata namespace",
+          "examples": [
+            "demo-system"
+          ],
+          "title": "compositionNamespace",
+          "type": "string"
+        },
+        "compositionResource": {
+          "default": "fullstackapps",
+          "description": "Composition Custom Resource plural name",
+          "examples": [
+            "githubscaffoldings"
+          ],
+          "title": "compositionResource",
+          "type": "string"
+        },
+        "gracefullyPaused": {
+          "default": false,
+          "description": "composition graceful pause",
+          "examples": [
+            "false"
+          ],
+          "title": "gracefullyPaused",
+          "type": "boolean"
+        },
+        "krateoNamespace": {
+          "default": "krateo-system",
+          "description": "namespace where Krateo is installed",
+          "examples": [
+            "krateo-system"
+          ],
+          "title": "krateoNamespace",
+          "type": "string"
+        }
+      },
+      "title": "global",
+      "type": "object"
+    }
+  },
+  "type": "object"
+}

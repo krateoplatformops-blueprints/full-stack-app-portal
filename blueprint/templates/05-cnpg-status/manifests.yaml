@@ -1,0 +1,454 @@
+# -------------------------------------------------------------------
+# 1. NAVIGATION MENU ITEM
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: NavMenuItem
+metadata:
+  name: cnpg-dashboard-nav
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - pages
+    resourceRefId: cnpg-dashboard-page
+    label: CNPG Cluster
+    icon: fa-database
+    path: /cnpg/my-app-1
+    order: 160
+  resourcesRefs:
+    items:
+      - id: cnpg-dashboard-page
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: cnpg-dashboard-page
+        namespace: full-stack-app-1
+        resource: pages
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 2. MAIN PAGE & MAIN WRAPPER
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Page
+metadata:
+  name: cnpg-dashboard-page
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    title: "CNPG Cluster: my-app-1"
+    allowedResources:
+      - rows
+    items:
+      - resourceRefId: cnpg-main-row
+  resourcesRefs:
+    items:
+      - id: cnpg-main-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: rows
+        name: cnpg-main-row
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: cnpg-main-row
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: cnpg-main-panel
+        size: 24
+  resourcesRefs:
+    items:
+      - id: cnpg-main-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        name: cnpg-main-panel
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: cnpg-main-panel
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    actions: {}
+    title: "Cluster Overview"
+    icon:
+      name: "fa-server"
+      color: "blue"
+    items:
+      - resourceRefId: cnpg-kpi-row
+      - resourceRefId: cnpg-tables-row
+  resourcesRefs:
+    items:
+      - id: cnpg-kpi-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: rows
+        name: cnpg-kpi-row
+        namespace: full-stack-app-1
+        verb: GET
+      - id: cnpg-tables-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: rows
+        name: cnpg-tables-row
+        namespace: full-stack-app-1
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 3. MAIN LAYOUT GRID
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: cnpg-kpi-row
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - columns
+    items:
+      - resourceRefId: cnpg-kpi-col-left
+        size: 8
+      - resourceRefId: cnpg-kpi-col-right
+        size: 16
+  resourcesRefs:
+    items:
+      - id: cnpg-kpi-col-left
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: columns
+        name: cnpg-kpi-col-left
+        namespace: full-stack-app-1
+        verb: GET
+      - id: cnpg-kpi-col-right
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: columns
+        name: cnpg-kpi-col-right
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Column
+metadata:
+  name: cnpg-kpi-col-left
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: cnpg-panel-phase
+      - resourceRefId: cnpg-panel-primary
+  resourcesRefs:
+    items:
+      - id: cnpg-panel-phase
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        name: cnpg-panel-phase
+        namespace: full-stack-app-1
+        verb: GET
+      - id: cnpg-panel-primary
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        name: cnpg-panel-primary
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Column
+metadata:
+  name: cnpg-kpi-col-right
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: cnpg-panel-instances
+  resourcesRefs:
+    items:
+      - id: cnpg-panel-instances
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        name: cnpg-panel-instances
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: cnpg-tables-row
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - tables
+    items:
+      - resourceRefId: cnpg-table-conditions
+        size: 24
+  resourcesRefs:
+    items:
+      - id: cnpg-table-conditions
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: tables
+        name: cnpg-table-conditions
+        namespace: full-stack-app-1
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 4. KPI PANELS & CHARTS
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: cnpg-panel-phase
+  namespace: full-stack-app-1
+spec:
+  apiRef:
+    name: get-cnpg-cluster
+    namespace: full-stack-app-1
+  widgetData:
+    actions: {}
+    title: "Cluster Phase"
+    icon: 
+      name: "fa-heartbeat"
+      color: "red"
+    headerLeft: "-"
+    items: []
+  widgetDataTemplate:
+    - forPath: headerLeft
+      expression: >
+        ${ .status.phase }
+  resourcesRefs:
+    items: []
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: cnpg-panel-primary
+  namespace: full-stack-app-1
+spec:
+  apiRef:
+    name: get-cnpg-cluster
+    namespace: full-stack-app-1
+  widgetData:
+    actions: {}
+    title: "Current Primary"
+    icon: 
+      name: "fa-star"
+      color: "violet"
+    headerLeft: "-"
+    items: []
+  widgetDataTemplate:
+    - forPath: headerLeft
+      expression: >
+        ${ .status.currentPrimary }
+  resourcesRefs:
+    items: []
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: cnpg-panel-instances
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    actions: {}
+    title: "Instances Overview"
+    icon: 
+      name: "fa-server"
+      color: "orange"
+    items:
+      - resourceRefId: cnpg-instances-inner-row
+  resourcesRefs:
+    items:
+      - id: cnpg-instances-inner-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: rows
+        name: cnpg-instances-inner-row
+        namespace: full-stack-app-1
+        verb: GET
+---
+# The inner row wraps the Chart and Table in the same panel
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: cnpg-instances-inner-row
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources:
+      - piecharts
+      - tables
+    items:
+      - resourceRefId: cnpg-piechart-instances
+        size: 8
+      - resourceRefId: cnpg-table-instances
+        size: 16
+  resourcesRefs:
+    items:
+      - id: cnpg-piechart-instances
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: piecharts
+        name: cnpg-piechart-instances
+        namespace: full-stack-app-1
+        verb: GET
+      - id: cnpg-table-instances
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: tables
+        name: cnpg-table-instances
+        namespace: full-stack-app-1
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: PieChart
+metadata:
+  name: cnpg-piechart-instances
+  namespace: full-stack-app-1
+spec:
+  apiRef:
+    name: get-cnpg-cluster
+    namespace: full-stack-app-1
+  widgetData:
+    title: "Replicas Status"
+    description: ""
+    series:
+      total: 0
+      data: []
+  widgetDataTemplate:
+    - forPath: series
+      expression: >
+        ${
+          {
+            total: .spec.instances,
+            data: [
+              {
+                color: "green",
+                value: (.status.readyInstances // 0),
+                label: "Ready"
+              },
+              {
+                color: "gray",
+                value: (.spec.instances - (.status.readyInstances // 0)),
+                label: "Pending"
+              }
+            ]
+          }
+        }
+---
+# -------------------------------------------------------------------
+# 5. TABLES
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: cnpg-table-instances
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources: []
+    data: []
+    columns:
+      - valueKey: name
+        title: Instance Name
+      - valueKey: ip
+        title: IP Address
+      - valueKey: isPrimary
+        title: Is Primary?
+  widgetDataTemplate:
+    - forPath: data
+      expression: "${ .items }"
+  apiRef:
+    name: get-cnpg-instances
+    namespace: full-stack-app-1
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: cnpg-table-conditions
+  namespace: full-stack-app-1
+spec:
+  widgetData:
+    allowedResources: []
+    data: []
+    columns:
+      - valueKey: type
+        title: Type
+      - valueKey: status
+        title: Status
+      - valueKey: message
+        title: Message
+  widgetDataTemplate:
+    - forPath: data
+      expression: "${ .items }"
+  apiRef:
+    name: get-cnpg-conditions
+    namespace: full-stack-app-1
+---
+# -------------------------------------------------------------------
+# 6. RESTACTIONS (Data Fetchers)
+# -------------------------------------------------------------------
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: get-cnpg-instances
+  namespace: full-stack-app-1
+spec:
+  api:
+    - name: cluster
+      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+  filter: >
+    {
+      "items": (
+        if .cluster.status.instancesReportedState then
+          .cluster.status.instancesReportedState | to_entries | map([
+            {"valueKey": "name", "kind": "jsonSchemaType", "type": "string", "stringValue": .key},
+            {"valueKey": "ip", "kind": "jsonSchemaType", "type": "string", "stringValue": .value.ip},
+            {"valueKey": "isPrimary", "kind": "jsonSchemaType", "type": "string", "stringValue": (.value.isPrimary | tostring)}
+          ])
+        else
+          []
+        end
+      )
+    }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: get-cnpg-conditions
+  namespace: full-stack-app-1
+spec:
+  api:
+    - name: cluster
+      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+  filter: >
+    {
+      "items": (
+        if .cluster.status.conditions then
+          .cluster.status.conditions | map([
+            {"valueKey": "type", "kind": "jsonSchemaType", "type": "string", "stringValue": .type},
+            {"valueKey": "status", "kind": "jsonSchemaType", "type": "string", "stringValue": .status},
+            {"valueKey": "message", "kind": "jsonSchemaType", "type": "string", "stringValue": .message}
+          ])
+        else
+          []
+        end
+      )
+    }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: get-cnpg-cluster
+  namespace: full-stack-app-1
+spec:
+  api:
+    - name: cluster
+      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+      verb: GET
+  # Unwrap the result so that we output the raw cluster object
+  filter: ".cluster"

@@ -1,0 +1,121 @@
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: NavMenuItem
+metadata:
+  name: {{ .Release.Name }}-compositions-list
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - pages
+    resourceRefId: page-fullstackapps
+    label: FullStack Apps
+    icon: fa-layer-group
+    path: /fullstackapps
+    order: 100
+  resourcesRefs:
+    items:
+      - id: page-fullstackapps
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: page-fullstackapps
+        namespace: krateo-system
+        resource: pages
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Page
+metadata:
+  name: {{ .Release.Name }}-page-fullstackapps
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    title: "FullStack Apps"
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: panel-fullstackapps
+  resourcesRefs:
+    items:
+      - id: panel-fullstackapps
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: panel-fullstackapps
+        namespace: krateo-system
+        resource: panels
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-panel-fullstackapps
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: "Compositions Overview"
+    items:
+      - resourceRefId: table-fullstackapps
+    icon:
+      name: fa-layer-group
+      color: "green"
+  resourcesRefs:
+    items:
+      - id: table-fullstackapps
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: table-fullstackapps
+        namespace: krateo-system
+        resource: tables
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Table
+metadata:
+  name: {{ .Release.Name }}-table-fullstackapps
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-get-fullstackapps
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    allowedResources:
+      - buttons
+    pageSize: 10
+    data: []
+    columns:
+      - title: Name
+        valueKey: name
+      - title: Namespace
+        valueKey: namespace
+      - title: DB Instances
+        valueKey: dbInstances
+      - title: Chart Version
+        valueKey: chartVersion
+      - title: Status
+        valueKey: status
+  widgetDataTemplate:
+    - forPath: data
+      expression: ${ .items }   
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-get-fullstackapps
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: fullstackapps
+      endpointRef:
+        name: resources-presenter-endpoint
+        namespace: krateo-system
+      path: "/resources?group=composition.krateo.io&resource=fullstackapps&limit=5000&namespace=*&raw=true"
+      verb: GET
+      exportJwt: true
+      continueOnError: true
+  filter: >
+    {
+      "items": .fullstackapps.items | map([
+        {"valueKey": "name", "kind": "jsonSchemaType", "type": "string", "stringValue": .name},
+        {"valueKey": "namespace", "kind": "jsonSchemaType", "type": "string", "stringValue": .namespace},
+        {"valueKey": "dbInstances", "kind": "jsonSchemaType", "type": "string", "stringValue": ((.raw.spec.app.cnpg.instances // 0) | tostring)},
+        {"valueKey": "chartVersion", "kind": "jsonSchemaType", "type": "string", "stringValue": (.raw.status.helmChartVersion // "-")},
+        {"valueKey": "status", "kind": "jsonSchemaType", "type": "string", "stringValue": (((.raw.status.conditions // []) | map(select(.type == "Ready")) | .[0].reason) // "Unknown")}
+      ])
+    }

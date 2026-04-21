@@ -1,0 +1,174 @@
+# 1. NavMenuItem: Adds the section to the side menu
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: NavMenuItem
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - pages
+    icon: fa-diagram-project
+    label: App Flowchart
+    path: /app-flowchart
+    resourceRefId: app-page
+    order: 110
+  resourcesRefs:
+    items:
+      - id: app-page
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-flowchart
+        namespace: {{ .Release.Namespace }}
+        resource: pages
+        verb: GET
+
+---
+# 2. Page: Wrapper for the whole section
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Page
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - rows
+    items:
+      - resourceRefId: app-row
+    title: FullStackApp Flowchart
+  resourcesRefs:
+    items:
+      - id: app-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-flowchart
+        namespace: {{ .Release.Namespace }}
+        resource: rows
+        verb: GET
+
+---
+# 3. Row: Grid layout struct
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: app-panel
+        size: 24
+  resourcesRefs:
+    items:
+      - id: app-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-flowchart
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+
+---
+# 4. Panel: Visual container holding the Flowchart
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: My App Composition Diagram
+    items:
+      - resourceRefId: app-flowchart
+    icon: 
+      name: fa-diagram-project
+      color: "red"
+  resourcesRefs:
+    items:
+      - id: app-flowchart
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-flowchart
+        namespace: {{ .Release.Namespace }}
+        resource: flowcharts
+        verb: GET
+
+---
+# 5. FlowChart: Renders the Composition + Managed components (UI and REST actions filtered out)
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: FlowChart
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-flowchart
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    data: []
+  widgetDataTemplate:
+    - forPath: data
+      expression: >
+        ${ .metadata.creationTimestamp as $date |
+        .metadata as $meta |
+        .apiVersion as $version |
+        .kind as $kind |
+        [
+          {
+            date: $date,
+            kind: $kind,
+            name: $meta.name,
+            namespace: $meta.namespace,
+            uid: $meta.uid,
+            resourceVersion: $meta.resourceVersion,
+            version: $version,
+            icon: { name: "fa-cubes", color: "blue" },
+            parentRefs: [{}]
+          }
+        ] + (
+          (.status.managed // []) | map(select(
+            (.apiVersion | startswith("widgets.templates.krateo.io") | not) and 
+            (.apiVersion | startswith("templates.krateo.io") | not)
+          )) | map({
+            date: $date,
+            kind: .resource,
+            name: .name,
+            namespace: (if .namespace == "" or .namespace == null then "cluster-scoped" else .namespace end),
+            uid: "\($meta.uid)-\(.resource)-\(.name)", 
+            resourceVersion: "0",
+            version: .apiVersion,
+            parentRefs: [{
+              kind: $kind,
+              name: $meta.name,
+              namespace: $meta.namespace,
+              uid: $meta.uid,
+              version: $version,
+              parentRefs: [{}]
+            }]
+          })
+        ) }
+
+---
+# 6. RESTAction: Fast fetch query targeting Krateo 3.0.0 dedicated API
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-flowchart
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: app
+      endpointRef:
+        name: resources-presenter-endpoint
+        namespace: krateo-system
+      path: "/resources?group=composition.krateo.io&version={{ .Values.global.compositionInstalledVersion }}&resource={{ .Values.global.compositionResource }}&namespace={{ .Release.Namespace }}&name={{ .Release.Name }}&raw=true"
+      verb: GET
+      exportJwt: true
+      continueOnError: true
+  filter: >
+    .app.items[0].raw | {
+      apiVersion: .apiVersion,
+      kind: .kind,
+      metadata: .metadata,
+      status: .status
+    }

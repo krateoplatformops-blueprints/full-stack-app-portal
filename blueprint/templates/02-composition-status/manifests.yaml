@@ -1,0 +1,292 @@
+# ---------------------------------------------------------
+# RESTActions (Fetch Statuses from Kubernetes)
+# ---------------------------------------------------------
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-get-frontend-status
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: "response"
+      path: "/apis/apps/v1/namespaces/{{ .Release.Namespace }}/deployments/{{ .Release.Name }}-frontend"
+      verb: GET
+  filter: ".response"
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-get-backend-status
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: "response"
+      path: "/apis/apps/v1/namespaces/{{ .Release.Namespace }}/deployments/{{ .Release.Name }}-backend"
+      verb: GET
+  filter: ".response"
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-get-cnpg-status
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: "response"
+      path: "/apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/Values.app.cnpg.clusterName"
+      verb: GET
+  filter: ".response"
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-get-redis-status
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: statefulset
+      path: /apis/apps/v1/namespaces/{{ .Release.Namespace }}/statefulsets/{{ .Release.Name }}-redis
+      verb: GET
+  filter: .statefulset
+---
+# ---------------------------------------------------------
+# Portal Widgets (UI Definition)
+# ---------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: NavMenuItem
+metadata:
+  name: {{ .Release.Name }}-my-app-nav
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - pages
+    resourceRefId: my-app-page
+    label: App Status
+    icon: fa-server
+    path: /app-status
+    order: 105
+  resourcesRefs:
+    items:
+      - id: my-app-page
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: pages
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-my-app-page
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Page
+metadata:
+  name: {{ .Release.Name }}-my-app-page
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - datagrids
+    items:
+      - resourceRefId: my-app-datagrid
+    title: Full Stack App Dashboard
+  resourcesRefs:
+    items:
+      - id: my-app-datagrid
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: datagrids
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-my-app-datagrid
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: DataGrid
+metadata:
+  name: {{ .Release.Name }}-my-app-datagrid
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    asGrid: true
+    grid:
+      column: 2
+    items:
+      - resourceRefId: frontend-panel
+      - resourceRefId: backend-panel
+      - resourceRefId: cnpg-panel
+      - resourceRefId: redis-panel
+  resourcesRefs:
+    items:
+      - id: frontend-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-frontend-panel
+        verb: GET
+      - id: backend-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-backend-panel
+        verb: GET
+      - id: cnpg-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-cnpg-panel
+        verb: GET
+      - id: redis-panel
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: panels
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-redis-panel
+        verb: GET
+---
+# ---------------------------------------------------------
+# PANELS
+# ---------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-frontend-panel
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Frontend Status
+    items:
+      - resourceRefId: frontend-status-md
+  resourcesRefs:
+    items:
+      - id: frontend-status-md
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: markdowns
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-frontend-status-md
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-backend-panel
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Backend Status
+    items:
+      - resourceRefId: backend-status-md
+  resourcesRefs:
+    items:
+      - id: backend-status-md
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: markdowns
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-backend-status-md
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-cnpg-panel
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: CNPG (Postgres) Status
+    items:
+      - resourceRefId: cnpg-status-md
+  resourcesRefs:
+    items:
+      - id: cnpg-status-md
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: markdowns
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-cnpg-status-md
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-redis-panel
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Redis Status
+    items:
+      - resourceRefId: redis-status-md
+  resourcesRefs:
+    items:
+      - id: redis-status-md
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        resource: markdowns
+        namespace: {{ .Release.Namespace }}
+        name: {{ .Release.Name }}-redis-status-md
+        verb: GET
+---
+# ---------------------------------------------------------
+# MARKDOWN WIDGETS
+# ---------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-frontend-status-md
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-get-frontend-status
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading frontend status..."
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ "**Ready Replicas:** \(.status.readyReplicas // 0) / \(.spec.replicas // 0)" }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-backend-status-md
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-get-backend-status
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading backend status..."
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ "**Ready Replicas:** \(.status.readyReplicas // 0) / \(.spec.replicas // 0)" }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-cnpg-status-md
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-get-cnpg-status
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading postgres status..."
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ "**Phase:** \(.status.phase // "Unknown")\n\n**Instances:** \(.status.instances // 0)" }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-redis-status-md
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-get-redis-status
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading redis status..."
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${  "**Replicas:** \(.status.replicas // 0)\n\n**Ready Replicas:** \(.status.readyReplicas // 0)\n\n**Updated Replicas:** \(.status.updatedReplicas // 0)" }
+
