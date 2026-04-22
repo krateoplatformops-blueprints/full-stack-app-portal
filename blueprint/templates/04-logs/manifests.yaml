@@ -554,7 +554,10 @@ spec:
       continueOnError: true
       errorKey: listErr
     - name: logs
-      path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods/${podList.items[0].metadata.name}/log?tailLines=100"
+      dependsOn:
+        name: podList
+      # The entire string is enclosed in ${ } and uses jq concatenation
+      path: "${ \"/api/v1/namespaces/{{ .Release.Namespace }}/pods/\" + .podList.items[0].metadata.name + \"/log?tailLines=100\" }"
       verb: GET
       endpointRef:
         name: portal-admin-page-endpoint
@@ -580,7 +583,9 @@ spec:
       continueOnError: true
       errorKey: listErr
     - name: logs
-      path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods/${podList.items[0].metadata.name}/log?tailLines=100"
+      dependsOn:
+        name: podList
+      path: "${ \"/api/v1/namespaces/{{ .Release.Namespace }}/pods/\" + .podList.items[0].metadata.name + \"/log?tailLines=100\" }"
       verb: GET
       endpointRef:
         name: portal-admin-page-endpoint
@@ -606,7 +611,9 @@ spec:
       continueOnError: true
       errorKey: listErr
     - name: logs
-      path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods/${podList.items[0].metadata.name}/log?tailLines=100"
+      dependsOn:
+        name: podList
+      path: "${ \"/api/v1/namespaces/{{ .Release.Namespace }}/pods/\" + .podList.items[0].metadata.name + \"/log?tailLines=100\" }"
       verb: GET
       endpointRef:
         name: portal-admin-page-endpoint
