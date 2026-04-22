@@ -33,7 +33,7 @@ metadata:
 spec:
   api:
     - name: "response"
-      path: "/apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/Values.app.cnpg.clusterName"
+      path: "/apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/{{ .Release.Name }}-pg-cluster"
       verb: GET
   filter: ".response"
 ---
