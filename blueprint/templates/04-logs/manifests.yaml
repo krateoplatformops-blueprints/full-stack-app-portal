@@ -548,9 +548,6 @@ spec:
     - name: podList
       path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods?labelSelector=app%3D{{ .Release.Name }}-backend&limit=1"
       verb: GET
-      endpointRef:
-        name: portal-admin-page-endpoint
-        namespace: krateo-system
       continueOnError: true
       errorKey: listErr
     - name: logs
@@ -577,9 +574,6 @@ spec:
     - name: podList
       path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods?labelSelector=app%3D{{ .Release.Name }}-frontend&limit=1"
       verb: GET
-      endpointRef:
-        name: portal-admin-page-endpoint
-        namespace: krateo-system
       continueOnError: true
       errorKey: listErr
     - name: logs
@@ -605,9 +599,6 @@ spec:
     - name: podList
       path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods?labelSelector=app%3D{{ .Release.Name }}-load-test-backend&limit=1"
       verb: GET
-      endpointRef:
-        name: portal-admin-page-endpoint
-        namespace: krateo-system
       continueOnError: true
       errorKey: listErr
     - name: logs
