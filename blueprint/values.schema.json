@@ -34,7 +34,7 @@
           "type": "string"
         },
         "compositionInstalledVersion": {
-          "default": "v0-3-2",
+          "default": "v0-0-13",
           "description": "Composition Custom Resource installed version",
           "examples": [
             "v0-0-1"
@@ -79,13 +79,13 @@
           "type": "string"
         },
         "gracefullyPaused": {
-          "default": false,
+          "default": "false",
           "description": "composition graceful pause",
           "examples": [
             "false"
           ],
           "title": "gracefullyPaused",
-          "type": "boolean"
+          "type": "string"
         },
         "krateoNamespace": {
           "default": "krateo-system",
