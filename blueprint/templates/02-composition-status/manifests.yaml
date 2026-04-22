@@ -108,6 +108,7 @@ spec:
     asGrid: true
     grid:
       column: 2
+      gutter: 16
     items:
       - resourceRefId: frontend-panel
       - resourceRefId: backend-panel
@@ -289,4 +290,3 @@ spec:
     - forPath: markdown
       expression: >
         ${  "**Replicas:** \(.status.replicas // 0)\n\n**Ready Replicas:** \(.status.readyReplicas // 0)\n\n**Updated Replicas:** \(.status.updatedReplicas // 0)" }
-
