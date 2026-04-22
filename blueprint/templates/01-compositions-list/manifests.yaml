@@ -16,8 +16,8 @@ spec:
     items:
       - id: page-fullstackapps
         apiVersion: widgets.templates.krateo.io/v1beta1
-        name: page-fullstackapps
-        namespace: krateo-system
+        name: {{ .Release.Name }}-page-fullstackapps
+        namespace: {{ .Release.Namespace }}
         resource: pages
         verb: GET
 ---
@@ -37,8 +37,8 @@ spec:
     items:
       - id: panel-fullstackapps
         apiVersion: widgets.templates.krateo.io/v1beta1
-        name: panel-fullstackapps
-        namespace: krateo-system
+        name: {{ .Release.Name }}-panel-fullstackapps
+        namespace: {{ .Release.Namespace }}
         resource: panels
         verb: GET
 ---
@@ -60,8 +60,8 @@ spec:
     items:
       - id: table-fullstackapps
         apiVersion: widgets.templates.krateo.io/v1beta1
-        name: table-fullstackapps
-        namespace: krateo-system
+        name: {{ .Release.Name }}-table-fullstackapps
+        namespace: {{ .Release.Namespace }}
         resource: tables
         verb: GET
 ---
