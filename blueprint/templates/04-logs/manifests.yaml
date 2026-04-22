@@ -1,626 +1,647 @@
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: NavMenuItem
-# metadata:
-#   name: nav-logs
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     allowedResources:
-#       - pages
-#     resourceRefId: page-logs
-#     label: App Logs
-#     icon: fa-terminal
-#     path: /logs
-#     order: 130
-#   resourcesRefs:
-#     items:
-#       - id: page-logs
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: page-logs
-#         namespace: krateo-system
-#         resource: pages
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Page
-# metadata:
-#   name: page-logs
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     title: Full Stack App Logs
-#     allowedResources:
-#       - rows
-#     items:
-#       - resourceRefId: row-logs
-#   resourcesRefs:
-#     items:
-#       - id: row-logs
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: row-logs
-#         namespace: krateo-system
-#         resource: rows
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Row
-# metadata:
-#   name: row-logs
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     allowedResources:
-#       - panels
-#     items:
-#       - resourceRefId: panel-pod-1
-#         size: 12
-#       - resourceRefId: panel-pod-2
-#         size: 12
-#       - resourceRefId: panel-pod-3
-#         size: 12
-#       - resourceRefId: panel-pod-4
-#         size: 12
-#       - resourceRefId: panel-pod-5
-#         size: 12
-#       - resourceRefId: panel-pod-6
-#         size: 12
-#   resourcesRefs:
-#     items:
-#       - id: panel-pod-1
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-1
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-#       - id: panel-pod-2
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-2
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-#       - id: panel-pod-3
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-3
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-#       - id: panel-pod-4
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-4
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-#       - id: panel-pod-5
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-5
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-#       - id: panel-pod-6
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: panel-pod-6
-#         namespace: krateo-system
-#         resource: panels
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-1
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: Backend
-#     icon:
-#       name: fa-server
-#       color: "blue"
-#     items:
-#       - resourceRefId: btn-pod-1
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-1
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-1
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-2
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: Frontend
-#     icon:
-#       name: fa-desktop
-#       color: "green"
-#     items:
-#       - resourceRefId: btn-pod-2
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-2
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-2
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-3
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: Load Test Backend
-#     icon:
-#       name: fa-weight-hanging
-#       color: "red"
-#     items:
-#       - resourceRefId: btn-pod-3
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-3
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-3
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-4
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: my-app-1-3
-#     icon:
-#       name: fa-database
-#       color: "violet"
-#     items:
-#       - resourceRefId: btn-pod-4
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-4
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-4
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-5
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: my-app-1-2
-#     icon:
-#       name: fa-database
-#       color: "orange"
-#     items:
-#       - resourceRefId: btn-pod-5
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-5
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-5
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Panel
-# metadata:
-#   name: panel-pod-6
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     actions: {}
-#     title: my-app-1-3
-#     icon:
-#       name: fa-database
-#       color: "gray"
-#     items:
-#       - resourceRefId: btn-pod-6
-#   resourcesRefs:
-#     items:
-#       - id: btn-pod-6
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: btn-pod-6
-#         namespace: krateo-system
-#         resource: buttons
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-1
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-1
-#     actions:
-#       openModal:
-#         - id: open-logs-1
-#           type: openModal
-#           resourceRefId: md-pod-1
-#           size: large
-#           title: "Backend Logs:"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-1
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-1
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-2
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-2
-#     actions:
-#       openModal:
-#         - id: open-logs-2
-#           type: openModal
-#           resourceRefId: md-pod-2
-#           size: large
-#           title: "Frontend Logs:"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-2
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-2
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-3
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-3
-#     actions:
-#       openModal:
-#         - id: open-logs-3
-#           type: openModal
-#           resourceRefId: md-pod-3
-#           size: large
-#           title: "Logs: my-app-1-load-test-backend"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-3
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-3
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-4
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-4
-#     actions:
-#       openModal:
-#         - id: open-logs-4
-#           type: openModal
-#           resourceRefId: md-pod-4
-#           size: large
-#           title: "Logs: my-app-1-3"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-4
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-4
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-5
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-5
-#     actions:
-#       openModal:
-#         - id: open-logs-5
-#           type: openModal
-#           resourceRefId: md-pod-5
-#           size: large
-#           title: "Logs: my-app-1-2"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-5
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-5
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Button
-# metadata:
-#   name: btn-pod-6
-#   namespace: krateo-system
-# spec:
-#   widgetData:
-#     label: View Logs
-#     icon: fa-file-lines
-#     type: primary
-#     clickActionId: open-logs-6
-#     actions:
-#       openModal:
-#         - id: open-logs-6
-#           type: openModal
-#           resourceRefId: md-pod-6
-#           size: large
-#           title: "Logs: my-app-1-3"
-#   resourcesRefs:
-#     items:
-#       - id: md-pod-6
-#         apiVersion: widgets.templates.krateo.io/v1beta1
-#         name: md-pod-6
-#         namespace: krateo-system
-#         resource: markdowns
-#         verb: GET
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-1
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-1
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-2
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-2
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-3
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-3
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-4
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-4
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-5
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-5
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: widgets.templates.krateo.io/v1beta1
-# kind: Markdown
-# metadata:
-#   name: md-pod-6
-#   namespace: krateo-system
-# spec:
-#   apiRef:
-#     name: get-logs-pod-6
-#     namespace: krateo-system
-#   widgetData:
-#     markdown: "Loading logs..."
-#     allowCopy: true
-#     allowDownload: true
-#     downloadFileExtension: "txt"
-#   widgetDataTemplate:
-#     - forPath: markdown
-#       expression: >
-#         ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-1
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-5v2dwfw7-backend-7bf99fcd74-p5w96/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-2
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-5v2dwfw7-frontend-56d6958b6d-qtfwf/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-3
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-load-test-backend-29607220-s72pk/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-4
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-3/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-5
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-2/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
-# ---
-# apiVersion: templates.krateo.io/v1
-# kind: RESTAction
-# metadata:
-#   name: get-logs-pod-6
-#   namespace: krateo-system
-# spec:
-#   api:
-#     - name: logs
-#       path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-3/log?tailLines=100"
-#       verb: GET
-#       endpointRef:
-#         name: portal-admin-page-endpoint
-#         namespace: krateo-system
-#       continueOnError: true
-#       errorKey: err
-#   filter: |
-#     { response: (if .err then null else .logs end) }
+# -------------------------------------------------------------------
+# 1. NAVIGATION MENU ITEM
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: NavMenuItem
+metadata:
+  name: {{ .Release.Name }}-logs-nav
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - pages
+    resourceRefId: {{ .Release.Name }}-logs-page
+    label: App Logs
+    icon: fa-terminal
+    path: /logs
+    order: 130
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-page
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-page
+        namespace: {{ .Release.Namespace }}
+        resource: pages
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 2. PAGE
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Page
+metadata:
+  name: {{ .Release.Name }}-logs-page
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    title: Full Stack App Logs
+    allowedResources:
+      - rows
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-row
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-row
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-row
+        namespace: {{ .Release.Namespace }}
+        resource: rows
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 3. ROW
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Row
+metadata:
+  name: {{ .Release.Name }}-logs-row
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    allowedResources:
+      - panels
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-1
+        size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-2
+        size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-3
+        size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-4
+        size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-5
+        size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-6
+        size: 12
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-panel-pod-1
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-1
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-2
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-2
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-3
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-3
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-4
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-4
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-5
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-5
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-6
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-6
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 4. PANELS
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-1
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Backend
+    icon:
+      name: fa-server
+      color: "blue"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-1
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-1
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-1
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-2
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Frontend
+    icon:
+      name: fa-desktop
+      color: "green"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-2
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-2
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-2
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-3
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: Load Test Backend
+    icon:
+      name: fa-weight-hanging
+      color: "red"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-3
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-3
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-3
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-4
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: {{ .Release.Name }}-1-3
+    icon:
+      name: fa-database
+      color: "violet"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-4
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-4
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-4
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-5
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: {{ .Release.Name }}-1-2
+    icon:
+      name: fa-database
+      color: "orange"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-5
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-5
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-5
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-6
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: {{ .Release.Name }}-1-3
+    icon:
+      name: fa-database
+      color: "gray"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-6
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-6
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-6
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 5. BUTTONS
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-1
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-1
+    actions:
+      openModal:
+        - id: open-logs-1
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-1
+          size: large
+          title: "Backend Logs:"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-1
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-1
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-2
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-2
+    actions:
+      openModal:
+        - id: open-logs-2
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-2
+          size: large
+          title: "Frontend Logs:"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-2
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-2
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-3
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-3
+    actions:
+      openModal:
+        - id: open-logs-3
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-3
+          size: large
+          title: "Logs: {{ .Release.Name }}-load-test-backend"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-3
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-3
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-4
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-4
+    actions:
+      openModal:
+        - id: open-logs-4
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-4
+          size: large
+          title: "Logs: {{ .Release.Name }}-1-3"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-4
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-4
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-5
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-5
+    actions:
+      openModal:
+        - id: open-logs-5
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-5
+          size: large
+          title: "Logs: {{ .Release.Name }}-1-2"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-5
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-5
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-6
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-6
+    actions:
+      openModal:
+        - id: open-logs-6
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-6
+          size: large
+          title: "Logs: {{ .Release.Name }}-1-3"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-6
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-6
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
+# -------------------------------------------------------------------
+# 6. MARKDOWNS
+# -------------------------------------------------------------------
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-1
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-1
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-2
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-2
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-3
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-3
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-4
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-4
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-5
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-5
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-6
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-6
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+# -------------------------------------------------------------------
+# 7. RESTACTIONS (Data Fetchers)
+# -------------------------------------------------------------------
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-1
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-5v2dwfw7-backend-7bf99fcd74-p5w96/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-2
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-5v2dwfw7-frontend-56d6958b6d-qtfwf/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-3
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-load-test-backend-29607220-s72pk/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-4
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-3/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-5
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-2/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-6
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/full-stack-app-1/pods/my-app-1-3/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }

@@ -4,23 +4,23 @@
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: NavMenuItem
 metadata:
-  name: cnpg-dashboard-nav
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-nav
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - pages
-    resourceRefId: cnpg-dashboard-page
+    resourceRefId: {{ .Release.Name }}-cnpg-page
     label: CNPG Cluster
     icon: fa-database
-    path: /cnpg/my-app-1
+    path: /cnpg/{{ .Release.Name }}
     order: 160
   resourcesRefs:
     items:
-      - id: cnpg-dashboard-page
+      - id: {{ .Release.Name }}-cnpg-page
         apiVersion: widgets.templates.krateo.io/v1beta1
-        name: cnpg-dashboard-page
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-page
+        namespace: {{ .Release.Namespace }}
         resource: pages
         verb: GET
 ---
@@ -30,50 +30,50 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Page
 metadata:
-  name: cnpg-dashboard-page
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-page
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
-    title: "CNPG Cluster: my-app-1"
+    title: "CNPG Cluster: {{ .Release.Name }}"
     allowedResources:
       - rows
     items:
-      - resourceRefId: cnpg-main-row
+      - resourceRefId: {{ .Release.Name }}-cnpg-main-row
   resourcesRefs:
     items:
-      - id: cnpg-main-row
+      - id: {{ .Release.Name }}-cnpg-main-row
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: rows
-        name: cnpg-main-row
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-main-row
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Row
 metadata:
-  name: cnpg-main-row
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-main-row
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - panels
     items:
-      - resourceRefId: cnpg-main-panel
+      - resourceRefId: {{ .Release.Name }}-cnpg-main-panel
         size: 24
   resourcesRefs:
     items:
-      - id: cnpg-main-panel
+      - id: {{ .Release.Name }}-cnpg-main-panel
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: panels
-        name: cnpg-main-panel
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-main-panel
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Panel
 metadata:
-  name: cnpg-main-panel
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-main-panel
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     actions: {}
@@ -82,21 +82,21 @@ spec:
       name: "fa-server"
       color: "blue"
     items:
-      - resourceRefId: cnpg-kpi-row
-      - resourceRefId: cnpg-tables-row
+      - resourceRefId: {{ .Release.Name }}-cnpg-kpi-row
+      - resourceRefId: {{ .Release.Name }}-cnpg-tables-row
   resourcesRefs:
     items:
-      - id: cnpg-kpi-row
+      - id: {{ .Release.Name }}-cnpg-kpi-row
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: rows
-        name: cnpg-kpi-row
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-kpi-row
+        namespace: {{ .Release.Namespace }}
         verb: GET
-      - id: cnpg-tables-row
+      - id: {{ .Release.Name }}-cnpg-tables-row
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: rows
-        name: cnpg-tables-row
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-tables-row
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 # -------------------------------------------------------------------
@@ -105,98 +105,98 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Row
 metadata:
-  name: cnpg-kpi-row
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-kpi-row
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - columns
     items:
-      - resourceRefId: cnpg-kpi-col-left
+      - resourceRefId: {{ .Release.Name }}-cnpg-kpi-col-left
         size: 8
-      - resourceRefId: cnpg-kpi-col-right
+      - resourceRefId: {{ .Release.Name }}-cnpg-kpi-col-right
         size: 16
   resourcesRefs:
     items:
-      - id: cnpg-kpi-col-left
+      - id: {{ .Release.Name }}-cnpg-kpi-col-left
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: columns
-        name: cnpg-kpi-col-left
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-kpi-col-left
+        namespace: {{ .Release.Namespace }}
         verb: GET
-      - id: cnpg-kpi-col-right
+      - id: {{ .Release.Name }}-cnpg-kpi-col-right
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: columns
-        name: cnpg-kpi-col-right
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-kpi-col-right
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Column
 metadata:
-  name: cnpg-kpi-col-left
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-kpi-col-left
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - panels
     items:
-      - resourceRefId: cnpg-panel-phase
-      - resourceRefId: cnpg-panel-primary
+      - resourceRefId: {{ .Release.Name }}-cnpg-panel-phase
+      - resourceRefId: {{ .Release.Name }}-cnpg-panel-primary
   resourcesRefs:
     items:
-      - id: cnpg-panel-phase
+      - id: {{ .Release.Name }}-cnpg-panel-phase
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: panels
-        name: cnpg-panel-phase
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-panel-phase
+        namespace: {{ .Release.Namespace }}
         verb: GET
-      - id: cnpg-panel-primary
+      - id: {{ .Release.Name }}-cnpg-panel-primary
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: panels
-        name: cnpg-panel-primary
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-panel-primary
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Column
 metadata:
-  name: cnpg-kpi-col-right
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-kpi-col-right
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - panels
     items:
-      - resourceRefId: cnpg-panel-instances
+      - resourceRefId: {{ .Release.Name }}-cnpg-panel-instances
   resourcesRefs:
     items:
-      - id: cnpg-panel-instances
+      - id: {{ .Release.Name }}-cnpg-panel-instances
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: panels
-        name: cnpg-panel-instances
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-panel-instances
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Row
 metadata:
-  name: cnpg-tables-row
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-tables-row
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - tables
     items:
-      - resourceRefId: cnpg-table-conditions
+      - resourceRefId: {{ .Release.Name }}-cnpg-table-conditions
         size: 24
   resourcesRefs:
     items:
-      - id: cnpg-table-conditions
+      - id: {{ .Release.Name }}-cnpg-table-conditions
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: tables
-        name: cnpg-table-conditions
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-table-conditions
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 # -------------------------------------------------------------------
@@ -205,16 +205,16 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Panel
 metadata:
-  name: cnpg-panel-phase
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-panel-phase
+  namespace: {{ .Release.Namespace }}
 spec:
   apiRef:
-    name: get-cnpg-cluster
-    namespace: full-stack-app-1
+    name: {{ .Release.Name }}-cnpg-get-cluster
+    namespace: {{ .Release.Namespace }}
   widgetData:
     actions: {}
     title: "Cluster Phase"
-    icon: 
+    icon:
       name: "fa-heartbeat"
       color: "red"
     headerLeft: "-"
@@ -229,16 +229,16 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Panel
 metadata:
-  name: cnpg-panel-primary
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-panel-primary
+  namespace: {{ .Release.Namespace }}
 spec:
   apiRef:
-    name: get-cnpg-cluster
-    namespace: full-stack-app-1
+    name: {{ .Release.Name }}-cnpg-get-cluster
+    namespace: {{ .Release.Namespace }}
   widgetData:
     actions: {}
     title: "Current Primary"
-    icon: 
+    icon:
       name: "fa-star"
       color: "violet"
     headerLeft: "-"
@@ -253,66 +253,66 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Panel
 metadata:
-  name: cnpg-panel-instances
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-panel-instances
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     actions: {}
     title: "Instances Overview"
-    icon: 
+    icon:
       name: "fa-server"
       color: "orange"
     items:
-      - resourceRefId: cnpg-instances-inner-row
+      - resourceRefId: {{ .Release.Name }}-cnpg-instances-inner-row
   resourcesRefs:
     items:
-      - id: cnpg-instances-inner-row
+      - id: {{ .Release.Name }}-cnpg-instances-inner-row
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: rows
-        name: cnpg-instances-inner-row
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-instances-inner-row
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 # The inner row wraps the Chart and Table in the same panel
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Row
 metadata:
-  name: cnpg-instances-inner-row
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-instances-inner-row
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources:
       - piecharts
       - tables
     items:
-      - resourceRefId: cnpg-piechart-instances
+      - resourceRefId: {{ .Release.Name }}-cnpg-piechart-instances
         size: 8
-      - resourceRefId: cnpg-table-instances
+      - resourceRefId: {{ .Release.Name }}-cnpg-table-instances
         size: 16
   resourcesRefs:
     items:
-      - id: cnpg-piechart-instances
+      - id: {{ .Release.Name }}-cnpg-piechart-instances
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: piecharts
-        name: cnpg-piechart-instances
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-piechart-instances
+        namespace: {{ .Release.Namespace }}
         verb: GET
-      - id: cnpg-table-instances
+      - id: {{ .Release.Name }}-cnpg-table-instances
         apiVersion: widgets.templates.krateo.io/v1beta1
         resource: tables
-        name: cnpg-table-instances
-        namespace: full-stack-app-1
+        name: {{ .Release.Name }}-cnpg-table-instances
+        namespace: {{ .Release.Namespace }}
         verb: GET
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: PieChart
 metadata:
-  name: cnpg-piechart-instances
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-piechart-instances
+  namespace: {{ .Release.Namespace }}
 spec:
   apiRef:
-    name: get-cnpg-cluster
-    namespace: full-stack-app-1
+    name: {{ .Release.Name }}-cnpg-get-cluster
+    namespace: {{ .Release.Namespace }}
   widgetData:
     title: "Replicas Status"
     description: ""
@@ -346,8 +346,8 @@ spec:
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Table
 metadata:
-  name: cnpg-table-instances
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-table-instances
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources: []
@@ -363,14 +363,14 @@ spec:
     - forPath: data
       expression: "${ .items }"
   apiRef:
-    name: get-cnpg-instances
-    namespace: full-stack-app-1
+    name: {{ .Release.Name }}-cnpg-get-instances
+    namespace: {{ .Release.Namespace }}
 ---
 apiVersion: widgets.templates.krateo.io/v1beta1
 kind: Table
 metadata:
-  name: cnpg-table-conditions
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-table-conditions
+  namespace: {{ .Release.Namespace }}
 spec:
   widgetData:
     allowedResources: []
@@ -386,8 +386,8 @@ spec:
     - forPath: data
       expression: "${ .items }"
   apiRef:
-    name: get-cnpg-conditions
-    namespace: full-stack-app-1
+    name: {{ .Release.Name }}-cnpg-get-conditions
+    namespace: {{ .Release.Namespace }}
 ---
 # -------------------------------------------------------------------
 # 6. RESTACTIONS (Data Fetchers)
@@ -395,12 +395,12 @@ spec:
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: get-cnpg-instances
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-get-instances
+  namespace: {{ .Release.Namespace }}
 spec:
   api:
     - name: cluster
-      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+      path: /apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/{{ .Release.Name }}-pg-cluster
   filter: >
     {
       "items": (
@@ -419,12 +419,12 @@ spec:
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: get-cnpg-conditions
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-get-conditions
+  namespace: {{ .Release.Namespace }}
 spec:
   api:
     - name: cluster
-      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+      path: /apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/{{ .Release.Name }}-pg-cluster
   filter: >
     {
       "items": (
@@ -443,12 +443,12 @@ spec:
 apiVersion: templates.krateo.io/v1
 kind: RESTAction
 metadata:
-  name: get-cnpg-cluster
-  namespace: full-stack-app-1
+  name: {{ .Release.Name }}-cnpg-get-cluster
+  namespace: {{ .Release.Namespace }}
 spec:
   api:
     - name: cluster
-      path: /apis/postgresql.cnpg.io/v1/namespaces/full-stack-app-1/clusters/my-app-1
+      path: /apis/postgresql.cnpg.io/v1/namespaces/{{ .Release.Namespace }}/clusters/{{ .Release.Name }}-pg-cluster
       verb: GET
   # Unwrap the result so that we output the raw cluster object
   filter: ".cluster"
