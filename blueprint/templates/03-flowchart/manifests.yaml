@@ -161,7 +161,7 @@ spec:
       endpointRef:
         name: resources-presenter-endpoint
         namespace: krateo-system
-      path: "/resources?group=composition.krateo.io&version={{ .Values.global.compositionInstalledVersion }}&resource={{ .Values.global.compositionResource }}&namespace={{ .Release.Namespace }}&name={{ .Release.Name }}&raw=true"
+      path: "/resources?group=composition.krateo.io&version={{ .Values.global.compositionInstalledVersion }}&resource={{ .Values.global.compositionResource }}&namespace={{ .Values.global.compositionNamespace }}&name={{ .Values.global.compositionName }}&raw=true"
       verb: GET
       exportJwt: true
       continueOnError: true
