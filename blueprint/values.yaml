@@ -64,4 +64,5 @@ global:
   # type: boolean
   # examples: ["false"]
   # @schema 
-  gracefullyPaused: false
+  gracefullyPaused: "false"
+  
