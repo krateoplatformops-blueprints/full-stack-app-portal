@@ -73,6 +73,8 @@ spec:
         size: 12
       - resourceRefId: {{ .Release.Name }}-logs-panel-pod-6
         size: 12
+      - resourceRefId: {{ .Release.Name }}-logs-panel-pod-7
+        size: 12
   resourcesRefs:
     items:
       - id: {{ .Release.Name }}-logs-panel-pod-1
@@ -108,6 +110,12 @@ spec:
       - id: {{ .Release.Name }}-logs-panel-pod-6
         apiVersion: widgets.templates.krateo.io/v1beta1
         name: {{ .Release.Name }}-logs-panel-pod-6
+        namespace: {{ .Release.Namespace }}
+        resource: panels
+        verb: GET
+      - id: {{ .Release.Name }}-logs-panel-pod-7
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-panel-pod-7
         namespace: {{ .Release.Namespace }}
         resource: panels
         verb: GET
@@ -249,6 +257,29 @@ spec:
       - id: {{ .Release.Name }}-logs-btn-pod-6
         apiVersion: widgets.templates.krateo.io/v1beta1
         name: {{ .Release.Name }}-logs-btn-pod-6
+        namespace: {{ .Release.Namespace }}
+        resource: buttons
+        verb: GET
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Panel
+metadata:
+  name: {{ .Release.Name }}-logs-panel-pod-7
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    actions: {}
+    title: {{ .Release.Name }}-redis-0
+    icon:
+      name: fa-database
+      color: "red"
+    items:
+      - resourceRefId: {{ .Release.Name }}-logs-btn-pod-7
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-btn-pod-7
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-btn-pod-7
         namespace: {{ .Release.Namespace }}
         resource: buttons
         verb: GET
@@ -418,6 +449,33 @@ spec:
         resource: markdowns
         verb: GET
 ---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Button
+metadata:
+  name: {{ .Release.Name }}-logs-btn-pod-7
+  namespace: {{ .Release.Namespace }}
+spec:
+  widgetData:
+    label: View Logs
+    icon: fa-file-lines
+    type: primary
+    clickActionId: open-logs-7
+    actions:
+      openModal:
+        - id: open-logs-7
+          type: openModal
+          resourceRefId: {{ .Release.Name }}-logs-md-pod-7
+          size: large
+          title: "Logs: {{ .Release.Name }}-redis-0"
+  resourcesRefs:
+    items:
+      - id: {{ .Release.Name }}-logs-md-pod-7
+        apiVersion: widgets.templates.krateo.io/v1beta1
+        name: {{ .Release.Name }}-logs-md-pod-7
+        namespace: {{ .Release.Namespace }}
+        resource: markdowns
+        verb: GET
+---
 # -------------------------------------------------------------------
 # 6. MARKDOWNS
 # -------------------------------------------------------------------
@@ -524,6 +582,25 @@ metadata:
 spec:
   apiRef:
     name: {{ .Release.Name }}-logs-get-pod-6
+    namespace: {{ .Release.Namespace }}
+  widgetData:
+    markdown: "Loading logs..."
+    allowCopy: true
+    allowDownload: true
+    downloadFileExtension: "txt"
+  widgetDataTemplate:
+    - forPath: markdown
+      expression: >
+        ${ if .response then "```\n" + .response.logs + "\n```" else "⚠️ **Logs could not be retrieved.**" end }
+---
+apiVersion: widgets.templates.krateo.io/v1beta1
+kind: Markdown
+metadata:
+  name: {{ .Release.Name }}-logs-md-pod-7
+  namespace: {{ .Release.Namespace }}
+spec:
+  apiRef:
+    name: {{ .Release.Name }}-logs-get-pod-7
     namespace: {{ .Release.Namespace }}
   widgetData:
     markdown: "Loading logs..."
@@ -659,6 +736,24 @@ spec:
   api:
     - name: logs
       path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods/{{ .Release.Name }}-pg-cluster-3/log?tailLines=100"
+      verb: GET
+      endpointRef:
+        name: portal-admin-page-endpoint
+        namespace: krateo-system
+      continueOnError: true
+      errorKey: err
+  filter: |
+    { response: (if .err then null else .logs end) }
+---
+apiVersion: templates.krateo.io/v1
+kind: RESTAction
+metadata:
+  name: {{ .Release.Name }}-logs-get-pod-7
+  namespace: {{ .Release.Namespace }}
+spec:
+  api:
+    - name: logs
+      path: "/api/v1/namespaces/{{ .Release.Namespace }}/pods/{{ .Release.Name }}-redis-0/log?tailLines=100"
       verb: GET
       endpointRef:
         name: portal-admin-page-endpoint
